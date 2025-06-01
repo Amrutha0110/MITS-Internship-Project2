@@ -103,3 +103,21 @@ trainer.train()
 eval_results = trainer.evaluate()
 print("\nFinal Test Set Evaluation:")
 print(eval_results)
+
+# 12. Predict custom input
+def predict_sentiment(texts):
+    model.eval()
+    inputs = tokenizer(texts, truncation=True, padding=True, return_tensors="pt").to(model.device)
+    with torch.no_grad():
+        outputs = model(**inputs)
+    preds = torch.argmax(outputs.logits, dim=1).cpu().numpy()
+    return ["Positive" if label == 1 else "Negative" for label in preds]
+
+sample_texts = [
+    "I absolutely loved this movie. It's one of the best I've ever seen!",
+    "This was a waste of time. The plot was terrible and acting worse.",
+    "It was okay, not great but not bad either."
+]
+
+print("\nSample Predictions:")
+print(predict_sentiment(sample_texts))
