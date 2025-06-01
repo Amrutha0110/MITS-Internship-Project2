@@ -1,5 +1,6 @@
-# Sentiment Analysis (AI / ML)
 # 1. Install and import necessary libraries
+!pip install --upgrade datasets fsspec transformers
+
 from datasets import load_dataset
 from transformers import AutoTokenizer, AutoModelForSequenceClassification, TrainingArguments, Trainer
 from torch.utils.data import Dataset
